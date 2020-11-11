@@ -1,0 +1,74 @@
+<%- include ../partials/header.ejs %>
+
+
+<!-- Content for the Edit page -->
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1><%= title %></h1>
+
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <label for="nameTextField">Survey Title</label>
+                    <input type="text" class="form-control"
+                    id="titleTextField"
+                    placeholder="Enter the Survey Title"
+                    name="Title" 
+                    value="<%= survey.Title %>"
+                    required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descriptionTextArea">Description</label>
+                    <textarea type="text" class="form-control"
+                    id="descriptionTextArea"
+                    placeholder="Enter the a brief description of the survey"
+                    name="Description"
+                    required><%= survey.Description %></textarea>
+                </div>
+              
+                <div class="form-group">
+                    <label for="priceTextField">Price</label>
+                    <input type="number" class="form-control"
+                    id="priceTextField"
+                    placeholder="Enter the Survey's Price"
+                    name="Price" 
+                    value="<%= survey.Price %>"
+                    required>
+                </div>
+
+                <div class="form-group">
+                    <label for="authorTextField">Author</label>
+                    <input type="text" class="form-control"
+                    id="authorTextField"
+                    placeholder="Enter the Survey's Author"
+                    name="Author" 
+                    value="<%= survey.Author %>"
+                    required>
+                </div>
+              
+                <div class="form-group">
+                    <label for="publishedTextField">Genre</label>
+                    <input type="text" class="form-control"
+                    id="genreTextField"
+                    placeholder="Enter the Genre"
+                    name="Genre" 
+                    value="<%= survey.Genre %>"
+                    required>
+                </div>
+
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-edit"></i> Submit</button>
+                
+                    <a href="/surveys" class="btn btn-warning">
+                        <i class="fas fa-undo"></i> Cancel</a>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<%- include ../partials/footer.ejs %>
