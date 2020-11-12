@@ -1,9 +1,9 @@
 {
-  "name": "comp308-w2017-midterm",
-  "description": "## Welcome to the MidTerm Project - the Favourite Book List App",
+  "name": "COMP229 Group Project",
+  "description": "## We are the Localhosts! Ready to serve you",
   "main": "server.js",
   "authors": [
-    "Tom Tsiliopoulos"
+    "Luke Nguyen, Michael Courneya, Chloe Baker, Niv Nesarajah, Edgar Meija Razo,"
   ],
   "license": "ISC",
   "keywords": [

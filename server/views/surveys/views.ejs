@@ -1,0 +1,41 @@
+<% include ../partials/header.ejs %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h1><%= title %></h1>
+            <form class="form" method="post">
+              <div class="form-group">
+                <h3><%= survey.Title %></h3>
+              </div>
+              <div class="form-group">
+                <label>Question One:</label>
+                <p><%= survey.QuestionOne.Question %></p>
+                <textarea type="text" class="form-control"
+                    id="qoneTextArea"                   
+                    name="AnswerOne" required></textarea>               
+              </div>
+              <div class="form-group">
+                <label>Question Two:</label>
+                <p><%= survey.QuestionTwo.Question %></p> 
+                <textarea type="text" class="form-control"
+                    id="qoneTextArea"                   
+                    name="AnswerTwo" required></textarea>              
+              </div>
+              <div class="form-group">
+                <label>Question Three:</label>
+                <p><%= survey.QuestionThree.Question %></p> 
+                <textarea type="text" class="form-control"
+                    id="qoneTextArea"                   
+                    name="AnswerThree" required></textarea>              
+              </div>
+             
+              <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+              <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            </form>
+        </div>
+      </div>
+    </div>
+
+<% include ../partials/footer.ejs %>

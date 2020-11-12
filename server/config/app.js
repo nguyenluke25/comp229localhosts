@@ -1,5 +1,5 @@
 
-/* COMP229-W2020-MidTerm_Luke Nguyen_300744804_comp229midterm  */
+/* COMP229 Group Project - The Localhosts*/
 // modules for node and express
 let createError = require('http-errors');
 let express = require('express');
@@ -23,7 +23,7 @@ mongoDB.once('open', ()=> {
 
 // define routers
 let index = require('../routes/index'); // top level routes
-let books = require('../routes/books'); // routes for books
+let surveys = require('../routes/surveys'); // routes for surveys
 
 let app = express();
 
@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, '../../client')));
 
 // route redirects
 app.use('/', index);
-app.use('/books', books);
+app.use('/surveys', surveys);
 
 
 // catch 404 and forward to error handler

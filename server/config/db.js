@@ -1,4 +1,4 @@
 module.exports = {
   //local MongoDB deployment ->
-  "URI": "mongodb+srv://lukenguyen:300744804@midtermserver.gwegd.mongodb.net/books?retryWrites=true&w=majority"
+  "URI": "mongodb+srv://nguyenluke:300744804@cluster0.begud.mongodb.net/survey_lists?retryWrites=true&w=majority"
 };

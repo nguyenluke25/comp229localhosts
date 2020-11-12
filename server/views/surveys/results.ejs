@@ -1,0 +1,41 @@
+<% include ../partials/header.ejs %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h1><%= title %></h1>
+
+              <div class="form-group">
+                <h3><%= survey.Title %></h3>
+              </div>
+              <div class="form-group">
+                <label>Question One:</label>
+                <p><%= survey.QuestionOne.Question %></p>
+                 <br>
+                 <label>Answer:</label>               
+                <p><%= survey.QuestionOne.Answer %></p>              
+              </div>
+              <div class="form-group">
+                <label>Question Two:</label>
+                <p><%= survey.QuestionTwo.Question %></p> 
+                <br>
+                 <label>Answer:</label>               
+                <p><%= survey.QuestionTwo.Answer %></p>              
+              </div>
+              <div class="form-group">
+                <label>Question Three:</label>
+                <p><%= survey.QuestionThree.Question %></p> 
+                <br>
+                 <label>Answer:</label>               
+                <p><%= survey.QuestionThree.Answer %></p>               
+              </div>
+             
+              
+              <a href="/surveys" class="btn btn-success"><i class="fa fa-undo"></i> Back to survey list</a>
+            
+        </div>
+      </div>
+    </div>
+
+<% include ../partials/footer.ejs %>

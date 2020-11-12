@@ -310,10 +310,10 @@
 .fa-tags:before {
   content: "\f02c";
 }
-.fa-book:before {
+.fa-survey:before {
   content: "\f02d";
 }
-.fa-bookmark:before {
+.fa-surveymark:before {
   content: "\f02e";
 }
 .fa-print:before {
@@ -557,7 +557,7 @@
 .fa-twitter-square:before {
   content: "\f081";
 }
-.fa-facebook-square:before {
+.fa-facesurvey-square:before {
   content: "\f082";
 }
 .fa-camera-retro:before {
@@ -618,7 +618,7 @@
 .fa-square-o:before {
   content: "\f096";
 }
-.fa-bookmark-o:before {
+.fa-surveymark-o:before {
   content: "\f097";
 }
 .fa-phone-square:before {
@@ -627,8 +627,8 @@
 .fa-twitter:before {
   content: "\f099";
 }
-.fa-facebook-f:before,
-.fa-facebook:before {
+.fa-facesurvey-f:before,
+.fa-facesurvey:before {
   content: "\f09a";
 }
 .fa-github:before {
@@ -1784,7 +1784,7 @@
 .fa-genderless:before {
   content: "\f22d";
 }
-.fa-facebook-official:before {
+.fa-facesurvey-official:before {
   content: "\f230";
 }
 .fa-pinterest-p:before {
@@ -2191,10 +2191,10 @@
 .fa-linode:before {
   content: "\f2b8";
 }
-.fa-address-book:before {
+.fa-address-survey:before {
   content: "\f2b9";
 }
-.fa-address-book-o:before {
+.fa-address-survey-o:before {
   content: "\f2ba";
 }
 .fa-vcard:before,

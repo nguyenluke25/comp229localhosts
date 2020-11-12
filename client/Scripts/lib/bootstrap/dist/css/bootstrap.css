@@ -423,10 +423,10 @@ th {
 .glyphicon-tags:before {
   content: "\e042";
 }
-.glyphicon-book:before {
+.glyphicon-survey:before {
   content: "\e043";
 }
-.glyphicon-bookmark:before {
+.glyphicon-surveymark:before {
   content: "\e044";
 }
 .glyphicon-print:before {

@@ -1,4 +1,4 @@
-/* COMP229-W2020-MidTerm_Luke Nguyen_300744804_comp229midterm  */
+/* COMP229 Group Project - The Localhosts*/
 // modules required for routing
 let express = require('express');
 let router = express.Router();
@@ -30,14 +30,22 @@ router.get('/add', (req, res, next) => {
     res.render('surveys/add', {title: 'Add Survey'})
 });
 
-// POST process the Survey Details page and create a new Survey - CREATE
+// POST process the Survey Details page and create a new Survey
 router.post('/add', (req, res, next) => {
   let newSurvey = survey({
     "Title": req.body.Title,
-    "Description": req.body.Description,
-    "Price": req.body.Price,
-    "Author": req.body.Author,
-    "Genre": req.body.Genre
+    "QuestionOne": {
+      "Question": req.body.QuestionOne,
+      "Answer": "none"
+    },
+    "QuestionTwo": {
+      "Question": req.body.QuestionTwo,
+      "Answer": "none"
+    },
+    "QuestionThree": {
+      "Question": req.body.QuestionThree,
+      "Answer": "none"
+    },
   })
   survey.create(newSurvey, (err, Survey) =>{
     if(err)
@@ -53,7 +61,7 @@ router.post('/add', (req, res, next) => {
 })
 });
 
-// GET the Survey Details page in order to edit an existing Survey
+// GET the Survey details page in order to edit an existing Survey
 router.get('/edit/:id', (req, res, next) => {
 
   let id = req.params.id; 
@@ -66,39 +74,31 @@ router.get('/edit/:id', (req, res, next) => {
       }
       else
       {
+        console.log(currentSurvey)
           res.render('surveys/edit', {title: 'Edit Survey Info', survey: currentSurvey})
       }
   })
 });
 
-// POST - process the information passed from the details form and update the document
+// POST - process the questions passed from the survey and update the form
 router.post('/edit/:id', (req, res, next) => {
   let id = req.params.id
+  survey.findByIdAndUpdate(id, {$set:{
+    "QuestionOne.Question": req.body.QuestionOne,
+    "QuestionTwo.Question": req.body.QuestionTwo,
+    "QuestionThree.Question": req.body.QuestionThree,
+  }}, function (err, doc) {
+    if (err) {
+        console.log("Something wrong when updating data!");
+    }
 
-  let updatedSurvey = {
-    
-    "Title": req.body.Title,
-    "Description": req.body.Description,
-    "Price": req.body.Price,
-    "Author": req.body.Author,
-    "Genre": req.body.Genre
-}
-survey.updateOne({_id: id}, updatedSurvey, (err) =>{
-    if(err)
-    {
-        console.log(err);
-        res.end(err);
-    }
-    else
-    {
-        //refresh the survey list
-        res.redirect('/surveys');
-    }
-})
+    res.redirect('/surveys');
+
+  });
 
 });
 
-// GET - process the delete by user id
+// GET - process the survey deletion by survey id
 router.get('/delete/:id', (req, res, next) => {
   let id = req.params.id;
 
@@ -116,5 +116,61 @@ router.get('/delete/:id', (req, res, next) => {
   })
 });
 
+// GET - Take the survey by survey id
+router.get('/view/:id', (req, res, next) => {
+
+  let id = req.params.id; 
+
+  survey.findById(id, (err, currentSurvey) =>{
+      if(err)
+      {
+          console.log(err);
+          res.end(err);
+      }
+      else
+      {
+        console.log(currentSurvey)
+          res.render('surveys/views', {title: 'View Survey Info', survey: currentSurvey})
+      }
+  })
+});
+
+// POST - process the survey submission
+
+router.post('/view/:id', (req, res, next) => {
+  let id = req.params.id
+  survey.findByIdAndUpdate(id, {$set:{
+    "QuestionOne.Answer": req.body.AnswerOne,
+    "QuestionTwo.Answer": req.body.AnswerTwo,
+    "QuestionThree.Answer": req.body.AnswerThree,
+  }}, function (err, doc) {
+    if (err) {
+        console.log("Something wrong when updating data!");
+    }
+
+    res.redirect('/surveys');
+
+  });
+
+});
+
+// GET - view the survey results
+router.get('/results/:id', (req, res, next) => {
+
+  let id = req.params.id; 
+
+  survey.findById(id, (err, currentSurvey) =>{
+      if(err)
+      {
+          console.log(err);
+          res.end(err);
+      }
+      else
+      {
+        console.log(currentSurvey)
+          res.render('surveys/results', {title: 'View Survey Results', survey: currentSurvey})
+      }
+  })
+});
 
 module.exports = router;

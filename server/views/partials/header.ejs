@@ -21,10 +21,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><i class="fa fa-bookmark-o"></i> My Favourite Books</a>
+      <a class="navbar-brand" href="/"><i class="fa fa-surveymark-o"></i> The Localhosts</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Possible Navbar options -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if(title == "Home") { %>
@@ -33,12 +33,12 @@
           <li><a href="/"><i class="fa fa-home fa-lg"></i> Home</a></li>
         <% } %>
 
-          <% if(title == "books") { %>
-          <li class="active"><a href="/books"><i class="fa fa-book fa-lg">
-          </i> Books List</a></li>
+          <% if(title == "surveys") { %>
+          <li class="active"><a href="/surveys"><i class="fa fa-survey fa-lg">
+          </i> Surveys List</a></li>
           <% } else { %>
-            <li><a href="/books"><i class="fa fa-book fa-lg">
-            </i> Books List</a></li>
+            <li><a href="/surveys"><i class="fa fa-survey fa-lg">
+            </i> Surveys List</a></li>
           <% } %>
 
       </ul>
