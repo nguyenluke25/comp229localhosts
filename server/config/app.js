@@ -7,6 +7,7 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+
 // import "mongoose" - required for DB Access
 let mongoose = require('mongoose');
 // URI
@@ -26,6 +27,7 @@ let index = require('../routes/index'); // top level routes
 let surveys = require('../routes/surveys'); // routes for surveys
 
 let app = express();
+app.use(express.static(__dirname + '/../../client/Assets/images'))
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
