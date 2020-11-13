@@ -7,6 +7,7 @@ const surveys = require('../models/surveys');
 
 // define the survey model
 let survey = require('../models/surveys');
+let answer = require('../models/answer');
 
 /* GET surveys List page. READ */
 router.get('/', (req, res, next) => {
@@ -100,7 +101,7 @@ router.get('/edit/:id', (req, res, next) => {
         console.log(currentSurvey)
           res.render('surveys/edit', {title: 'Edit Survey Info', survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
       }
-  })
+  });
 });
 
 // POST - process the questions passed from the survey and update the form
@@ -203,7 +204,7 @@ router.get('/view/:id', (req, res, next) => {
       else
       {
         console.log(currentSurvey)
-          res.render('surveys/views', {title: 'View Survey Info', survey: currentSurvey})
+          res.render('surveys/views', {title: 'View Survey Info', survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
       }
   })
 });
@@ -212,19 +213,21 @@ router.get('/view/:id', (req, res, next) => {
 
 router.post('/view/:id', (req, res, next) => {
   let id = req.params.id
-  survey.findByIdAndUpdate(id, {$set:{
-    "QuestionOne.Answer": req.body.AnswerOne,
-    "QuestionTwo.Answer": req.body.AnswerTwo,
-    "QuestionThree.Answer": req.body.AnswerThree,
-  }}, function (err, doc) {
+  let questionNum = parseInt(req.body.questionNum);
+  var answers = [];
+  for (var i = 0; i < questionNum; i++)
+  {
+    eval("answers.push(req.body.Answer"+(i+1)+");");
+  }
+  //refresh the survey list
+  survey.findByIdAndUpdate(id, 
+    {$push: {"Answers": answers}}
+  , function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");
     }
-
     res.redirect('/surveys');
-
   });
-
 });
 
 // GET - view the survey results

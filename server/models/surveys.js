@@ -1,17 +1,13 @@
 /* COMP229 Group Project - The Localhosts*/
 let mongoose = require('mongoose');
-
-//create a model class for the questions
-let SurveyAnswer = mongoose.Schema({
-  Answer: [{type: String}]
-})
+let answers = require('../models/answer');
 
 // create a model class for the survey
 let Survey = mongoose.Schema({
     Title: String,
     QuestionList: [{type: String}],
     NumberOfQuestions: Number,
-    Answers: [{type: SurveyAnswer}]
+    Answers: [{type: Array}]
 },
 {
   collection: "surveys"
