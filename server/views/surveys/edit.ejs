@@ -1,4 +1,4 @@
-<%- include ../partials/header.ejs %>
+<%- include("../partials/header.ejs") %>
 
 
 <!-- Content for the Edit page -->
@@ -8,6 +8,8 @@
             <h1><%= title %></h1>
 
             <form class="form" method="POST">
+
+                <input type="hidden" name="questionNum" value="<%=questionNum%>">
                 <div class="form-group">
                     <label for="nameTextField">Survey Title</label>
                     <input type="text" class="form-control"
@@ -16,31 +18,22 @@
                     name="Title" required
                     value="<%= survey.Title %>">
                 </div>
-                
+
+                <% for(var i = 0; i < questionNum; i++) {%>
+
                 <div class="form-group">
-                    <label for="qoneTextArea">Question One</label>
+                    <label for="qoneTextArea">Question <%=i+1%></label>
                     <textarea type="text" class="form-control"
                     id="qoneTextArea"
-                    placeholder="Enter the first question of the survey"
-                    name="QuestionOne" required><%= survey.QuestionOne.Question %></textarea>
-                </div>
-              
-                <div class="form-group">
-                    <label for="qtwoTextArea">Question Two</label>
-                    <textarea type="text" class="form-control"
-                    id="qtwoTextArea"
-                    placeholder="Enter the second question of the survey"
-                    name="QuestionTwo" required><%= survey.QuestionTwo.Question %></textarea>
+                    placeholder="Enter question <%=i+1%> of the survey"
+                    name="Question<%=i+1%>" required><% if (i < survey.QuestionList.length) {%><%=survey.QuestionList[i]%><% } %></textarea>
+                    <button  class="btn btn-danger btn-sm" type="submit" formaction="/surveys/deletequestion/<%= survey._id %>?<%=i%>">Delete</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="qthreeTextArea">Question Three</label>
-                    <textarea type="text" class="form-control"
-                    id="qthreeTextArea"
-                    placeholder="Enter the third question of the survey"
-                    name="QuestionThree" required><%= survey.QuestionThree.Question %></textarea>
-                </div>
-
+                <% } %>
+                <% console.log(survey._id) %>
+                <button class="btn btn-primary" type="submit" formaction="/surveys/newquestionfromedit/<%=survey._id%>">
+                    Add Question</button>
 
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-edit"></i> Submit</button>
@@ -55,4 +48,4 @@
 </div>
 
 
-<%- include ../partials/footer.ejs %>
+<%- include("../partials/footer.ejs") %>

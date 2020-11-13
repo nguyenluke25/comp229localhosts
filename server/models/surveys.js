@@ -2,17 +2,16 @@
 let mongoose = require('mongoose');
 
 //create a model class for the questions
-let Question = mongoose.Schema({
-  Question: String,
-  Answer: String
+let SurveyAnswer = mongoose.Schema({
+  Answer: [{type: String}]
 })
 
 // create a model class for the survey
 let Survey = mongoose.Schema({
     Title: String,
-    QuestionOne: Question,
-    QuestionTwo: Question,
-    QuestionThree: Question
+    QuestionList: [{type: String}],
+    NumberOfQuestions: Number,
+    Answers: [{type: SurveyAnswer}]
 },
 {
   collection: "surveys"
