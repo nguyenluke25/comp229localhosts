@@ -9,6 +9,21 @@ const surveys = require('../models/surveys');
 let survey = require('../models/surveys');
 let answer = require('../models/answer');
 
+//let jwt = require('jsonwebtoken');
+
+let passport = require('passport');
+
+// helper function for guard purposes
+function requireAuth(req, res, next)
+{
+    // check if the user is logged in
+    if(!req.isAuthenticated())
+    {
+        return res.redirect('/login');
+    }
+    next();
+}
+
 /* GET surveys List page. READ */
 router.get('/', (req, res, next) => {
   // find all surveys in the surveys collection
@@ -18,7 +33,8 @@ router.get('/', (req, res, next) => {
     }
     else {
       res.render('surveys/index', {
-        title: 'Surveys',
+        title: 'Surveys', 
+        displayName: req.user ? req.user.displayName : '',
         surveys: surveys
       });
     }
@@ -27,12 +43,13 @@ router.get('/', (req, res, next) => {
 });
 
 //  GET the Survey Details page in order to add a new Survey
-router.get('/add', (req, res, next) => {
-    res.render('surveys/add', {title: 'Add Survey', questionNum: 1})
+router.get('/add',requireAuth, (req, res, next) => {
+    res.render('surveys/add', {title: 'Add Survey', displayName: req.user ? req.user.displayName : '',
+     questionNum: 1})
 });
 
 // POST process the Survey Details page and create a new Survey
-router.post('/add', (req, res, next) => {
+router.post('/add',requireAuth, (req, res, next) => {
   let questionNum = parseInt(req.body.questionNum);
   var questions = [];
   for (var i = 0; i < questionNum; i++)
@@ -58,7 +75,7 @@ router.post('/add', (req, res, next) => {
 })
 });
 
-router.post('/newquestion', (req, res, next) => {
+router.post('/newquestion',requireAuth, (req, res, next) => {
   let questionNum = parseInt(req.body.questionNum);
   var questions = [];
   for (var i = 0; i < questionNum; i++)
@@ -86,7 +103,7 @@ router.post('/newquestion', (req, res, next) => {
 });
 
 // GET the Survey details page in order to edit an existing Survey
-router.get('/edit/:id', (req, res, next) => {
+router.get('/edit/:id',requireAuth, (req, res, next) => {
 
   let id = req.params.id; 
 
@@ -99,13 +116,14 @@ router.get('/edit/:id', (req, res, next) => {
       else
       {
         console.log(currentSurvey)
-          res.render('surveys/edit', {title: 'Edit Survey Info', survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
+          res.render('surveys/edit', {title: 'Edit Survey Info', displayName: req.user ? req.user.displayName : '',
+           survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
       }
   });
 });
 
 // POST - process the questions passed from the survey and update the form
-router.post('/edit/:id', (req, res, next) => {
+router.post('/edit/:id',requireAuth, (req, res, next) => {
   let id = req.params.id;
   let questionNum = parseInt(req.body.questionNum);
   var questions = [];
@@ -128,7 +146,7 @@ router.post('/edit/:id', (req, res, next) => {
 
 });
 
-router.post('/newquestionfromedit/:id', (req, res, next) => {
+router.post('/newquestionfromedit/:id',requireAuth, (req, res, next) => {
   let questionNum = parseInt(req.body.questionNum);
   var questions = [];
   for (var i = 0; i < questionNum; i++)
@@ -148,7 +166,7 @@ router.post('/newquestionfromedit/:id', (req, res, next) => {
   });
 });
 
-router.post('/deletequestion/:id', (req, res, next) => {
+router.post('/deletequestion/:id',requireAuth, (req, res, next) => {
   let questionNum = parseInt(req.body.questionNum);
   let deleteNum = req.query;
   var questions = [];
@@ -173,7 +191,7 @@ router.post('/deletequestion/:id', (req, res, next) => {
 });
 
 // GET - process the survey deletion by survey id
-router.get('/delete/:id', (req, res, next) => {
+router.get('/delete/:id',requireAuth, (req, res, next) => {
   let id = req.params.id;
 
   survey.remove({_id: id}, (err) => {
@@ -204,7 +222,8 @@ router.get('/view/:id', (req, res, next) => {
       else
       {
         console.log(currentSurvey)
-          res.render('surveys/views', {title: 'View Survey Info', survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
+          res.render('surveys/views', {title: 'View Survey Info', displayName: req.user ? req.user.displayName : '',
+           survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
       }
   })
 });
@@ -231,7 +250,7 @@ router.post('/view/:id', (req, res, next) => {
 });
 
 // GET - view the survey results
-router.get('/results/:id', (req, res, next) => {
+router.get('/results/:id',requireAuth, (req, res, next) => {
 
   let id = req.params.id; 
 
@@ -244,7 +263,8 @@ router.get('/results/:id', (req, res, next) => {
       else
       {
         console.log(currentSurvey)
-          res.render('surveys/results', {title: 'View Survey Results', survey: currentSurvey})
+          res.render('surveys/results', {title: 'View Survey Results', displayName: req.user ? req.user.displayName : '',
+           survey: currentSurvey})
       }
   })
 });
