@@ -6,7 +6,7 @@ let mongoose = require('mongoose');
 let passport = require('passport');
 
 // enable jwt
-//let jwt = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 let DB = require('../config/db');
 
 let userModel = require('../models/user');
@@ -58,9 +58,9 @@ module.exports.processLoginPage = (req, res, next) => {
                 email: user.email
             }
 
-            //const authToken = jwt.sign(payload, DB.Secret, {
-            //    expiresIn: 604800 // 1 week
-           // });
+            const authToken = jwt.sign(payload, DB.Secret, {
+                expiresIn: 604800 // 1 week
+            });
 
             /* TODO - Getting Ready to convert to API
             res.json({success: true, msg: 'User Logged in Successfully!', user: {

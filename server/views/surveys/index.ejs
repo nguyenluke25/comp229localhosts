@@ -18,7 +18,7 @@
                   <th>Survey Name</th>
                   <th class="text-center"></th>
                   <th class="text-center"></th>
-                  <th class="text-center"></th>                 
+                  <th class="text-center"></th>               
                 </tr>
                 </thead>
                 <%}else{%>          
@@ -37,8 +37,10 @@
                 <tbody>
                 <!-- Template Row -->
                 <% for (let count = 0; count < surveys.length; count++) { %>
+                <% if(typeof displayName == 'string' && displayName) { %>
                 <tr>
                   <td class="text-center">
+                  
                     <a href="/surveys/view/<%= surveys[count]._id %>" class="btn btn-success btn-sm">
                       <i class="fas fa-pencil-alt"></i> Take Survey</a>
                       
@@ -46,32 +48,36 @@
                   <td><%= surveys[count].Title %></td>
 
                   <td class="text-center">
-                  <% if(typeof displayName == 'string' && displayName) { %>
+                  
                     <a href="/surveys/results/<%= surveys[count]._id %>" class="btn btn-primary btn-sm">
                             <i class="fas fa-trash-alt"></i> View Results</a>
                             
                   </td>
-                  <%}else{%>
-
-                  <%}%>
+                  
                   <td class="text-center">
-                  <% if(typeof displayName == 'string' && displayName) { %>
+                  
                     <a href="/surveys/edit/<%= surveys[count]._id %>" class="btn btn-warning btn-sm">
                       <i class="fas fa-pencil-alt"></i> Edit</a>
                       
                   </td>
-                  <%}else{%>
                   
-                  <%}%>
 
                   <td class="text-center">
-                  <% if(typeof displayName == 'string' && displayName) { %>
+                  
                     <a href="/surveys/delete/<%= surveys[count]._id %>" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash-alt"></i> Delete</a>
                             
                   </td>
-                  <%}else{%>
                   
+                  <%}else{%>
+                  <tr>
+                  <td class="text-center">
+                    <a href="/surveys/view/<%= surveys[count]._id %>" class="btn btn-success btn-sm">
+                      <i class="fas fa-pencil-alt"></i> Take Survey</a>
+                      
+                  </td>
+                  <td><%= surveys[count].Title %></td>
+                  </tr>
                   <%}%>
                 </tr>
                 <% } %>

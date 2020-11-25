@@ -9,7 +9,7 @@ const surveys = require('../models/surveys');
 let survey = require('../models/surveys');
 let answer = require('../models/answer');
 
-//let jwt = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 
 let passport = require('passport');
 
