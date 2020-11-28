@@ -59,7 +59,8 @@ router.post('/add',requireAuth, (req, res, next) => {
   let newSurvey = survey({
     "Title": req.body.Title,
     "QuestionList": questions,
-    "NumberOfQuestions": questions.length
+    "NumberOfQuestions": questions.length,
+    "Author": req.user.displayName
   })
   survey.create(newSurvey, (err, Survey) =>{
     if(err)
@@ -85,7 +86,8 @@ router.post('/newquestion',requireAuth, (req, res, next) => {
   let newSurvey = survey({
     "Title": req.body.Title,
     "QuestionList": questions,
-    "NumberOfQuestions": (questions.length + 1)
+    "NumberOfQuestions": (questions.length + 1),
+    "Author": req.user.displayName
   })
   survey.create(newSurvey, (err, Survey) =>{
     if(err)
@@ -116,8 +118,15 @@ router.get('/edit/:id',requireAuth, (req, res, next) => {
       else
       {
         console.log(currentSurvey)
+        if (req.user.displayName == currentSurvey.Author)
+        {
           res.render('surveys/edit', {title: 'Edit Survey Info', displayName: req.user ? req.user.displayName : '',
            survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
+        }
+        else
+        {
+          res.redirect('/surveys');
+        }
       }
   });
 });
@@ -134,7 +143,8 @@ router.post('/edit/:id',requireAuth, (req, res, next) => {
   survey.findByIdAndUpdate(id, {$set:{
     "Title": req.body.Title,
     "QuestionList": questions,
-    "NumberOfQuestions": (questions.length)
+    "NumberOfQuestions": (questions.length),
+    "Author": req.user.displayName
   }}, function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");
@@ -157,7 +167,8 @@ router.post('/newquestionfromedit/:id',requireAuth, (req, res, next) => {
   survey.findByIdAndUpdate(id, {$set:{
     "Title": req.body.Title,
     "QuestionList": questions,
-    "NumberOfQuestions": (questions.length + 1)
+    "NumberOfQuestions": (questions.length + 1),
+    "Author": req.user.displayName
   }}, function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");
@@ -181,7 +192,8 @@ router.post('/deletequestion/:id',requireAuth, (req, res, next) => {
   survey.findByIdAndUpdate(id, {$set:{
     "Title": req.body.Title,
     "QuestionList": questions,
-    "NumberOfQuestions": (questions.length - 1)
+    "NumberOfQuestions": (questions.length - 1),
+    "Author": req.user.displayName
   }}, function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");
@@ -193,19 +205,27 @@ router.post('/deletequestion/:id',requireAuth, (req, res, next) => {
 // GET - process the survey deletion by survey id
 router.get('/delete/:id',requireAuth, (req, res, next) => {
   let id = req.params.id;
-
-  survey.remove({_id: id}, (err) => {
-      if(err)
-      {
-          console.log(err);
-          res.end(err);
-      }
-      else
-      {
-          //refresh the contact list
-          res.redirect('/surveys');
-      }
-  })
+  survey.findById(id, (err, currentSurvey) =>{
+    if (req.user.displayName == currentSurvey.Author)
+    {
+      survey.remove({_id: id}, (err) => {
+          if(err)
+          {
+              console.log(err);
+              res.end(err);
+          }
+          else
+          {
+              //refresh the contact list
+              res.redirect('/surveys');
+          }
+      })
+    }
+    else
+    {
+      res.redirect('/surveys');
+    }
+  });
 });
 
 // GET - Take the survey by survey id
@@ -225,7 +245,7 @@ router.get('/view/:id', (req, res, next) => {
           res.render('surveys/views', {title: 'View Survey Info', displayName: req.user ? req.user.displayName : '',
            survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
       }
-  })
+  });
 });
 
 // POST - process the survey submission
@@ -263,8 +283,16 @@ router.get('/results/:id',requireAuth, (req, res, next) => {
       else
       {
         console.log(currentSurvey)
+        
+        if (req.user.displayName == currentSurvey.Author)
+        {
           res.render('surveys/results', {title: 'View Survey Results', displayName: req.user ? req.user.displayName : '',
            survey: currentSurvey})
+        }
+        else
+        {
+          res.redirect('/surveys');
+        }
       }
   })
 });

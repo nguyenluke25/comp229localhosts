@@ -7,7 +7,8 @@ let Survey = mongoose.Schema({
     Title: String,
     QuestionList: [{type: String}],
     NumberOfQuestions: Number,
-    Answers: [{type: Array}]
+    Answers: [{type: Array}],
+    Author: String
 },
 {
   collection: "surveys"

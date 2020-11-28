@@ -40,7 +40,6 @@
                 <% if(typeof displayName == 'string' && displayName) { %>
                 <tr>
                   <td class="text-center">
-                  
                     <a href="/surveys/view/<%= surveys[count]._id %>" class="btn btn-success btn-sm">
                       <i class="fas fa-pencil-alt"></i> Take Survey</a>
                       
@@ -48,24 +47,27 @@
                   <td><%= surveys[count].Title %></td>
 
                   <td class="text-center">
-                  
-                    <a href="/surveys/results/<%= surveys[count]._id %>" class="btn btn-primary btn-sm">
-                            <i class="fas fa-trash-alt"></i> View Results</a>
+                    <% if(displayName == surveys[count].Author) { %>
+                      <a href="/surveys/results/<%= surveys[count]._id %>" class="btn btn-primary btn-sm">
+                              <i class="fas fa-trash-alt"></i> View Results</a>
+                    <% } %>
                             
                   </td>
                   
                   <td class="text-center">
-                  
-                    <a href="/surveys/edit/<%= surveys[count]._id %>" class="btn btn-warning btn-sm">
-                      <i class="fas fa-pencil-alt"></i> Edit</a>
+                    <% if(displayName == surveys[count].Author) { %>
+                      <a href="/surveys/edit/<%= surveys[count]._id %>" class="btn btn-warning btn-sm">
+                        <i class="fas fa-pencil-alt"></i> Edit</a>
+                    <% } %>
                       
                   </td>
                   
 
                   <td class="text-center">
-                  
-                    <a href="/surveys/delete/<%= surveys[count]._id %>" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash-alt"></i> Delete</a>
+                    <% if(displayName == surveys[count].Author) { %>
+                      <a href="/surveys/delete/<%= surveys[count]._id %>" class="btn btn-danger btn-sm">
+                              <i class="fas fa-trash-alt"></i> Delete</a>
+                    <% } %>
                             
                   </td>
                   
