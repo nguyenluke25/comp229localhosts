@@ -31,6 +31,12 @@
                 </div>
 
                 <% } %>
+
+                <div class="form-group">
+                    <label for="ExpiryDate">Expiry Date:</label>
+                    <input type="date" id="eDate" name="ExpiryDate"> 
+                </div>
+                
                 <% console.log(survey._id) %>
                 <button class="btn btn-primary" type="submit" formaction="/surveys/newquestionfromedit/<%=survey._id%>">
                     Add Question</button>

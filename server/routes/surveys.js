@@ -27,7 +27,29 @@ function requireAuth(req, res, next)
 /* GET surveys List page. READ */
 router.get('/', (req, res, next) => {
   // find all surveys in the surveys collection
-  survey.find( (err, surveys) => {
+  survey.find({
+    "ExpiryDate": { $gte : new Date()}    
+  },(err, surveys) => {
+    console.log(surveys);
+    if (err) {
+      return console.error(err);
+    }
+    else {
+      res.render('surveys/index', {
+        title: 'Surveys', 
+        displayName: req.user ? req.user.displayName : '',
+        surveys: surveys
+      });
+    }
+  });
+
+});
+
+/* GET surveys List page. READ FOR ADMIN */
+router.get('/admin',requireAuth, (req, res, next) => {
+  // find all surveys in the surveys collection
+  survey.find((err, surveys) => {
+    console.log(surveys);
     if (err) {
       return console.error(err);
     }
@@ -60,7 +82,8 @@ router.post('/add',requireAuth, (req, res, next) => {
     "Title": req.body.Title,
     "QuestionList": questions,
     "NumberOfQuestions": questions.length,
-    "Author": req.user.displayName
+    "Author": req.user.displayName,
+    "ExpiryDate": new Date(req.body.ExpiryDate)
   })
   survey.create(newSurvey, (err, Survey) =>{
     if(err)
@@ -87,8 +110,10 @@ router.post('/newquestion',requireAuth, (req, res, next) => {
     "Title": req.body.Title,
     "QuestionList": questions,
     "NumberOfQuestions": (questions.length + 1),
-    "Author": req.user.displayName
+    "Author": req.user.displayName,
+    "ExpiryDate": new Date(req.body.ExpiryDate)
   })
+
   survey.create(newSurvey, (err, Survey) =>{
     if(err)
     {
@@ -121,7 +146,7 @@ router.get('/edit/:id',requireAuth, (req, res, next) => {
         if (req.user.displayName == currentSurvey.Author)
         {
           res.render('surveys/edit', {title: 'Edit Survey Info', displayName: req.user ? req.user.displayName : '',
-           survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
+           survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions, ExpiryDate: currentSurvey.ExpiryDate})
         }
         else
         {
@@ -144,7 +169,9 @@ router.post('/edit/:id',requireAuth, (req, res, next) => {
     "Title": req.body.Title,
     "QuestionList": questions,
     "NumberOfQuestions": (questions.length),
-    "Author": req.user.displayName
+    "Author": req.user.displayName,
+    "ExpiryDate": new Date(req.body.ExpiryDate)
+
   }}, function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");
@@ -168,7 +195,8 @@ router.post('/newquestionfromedit/:id',requireAuth, (req, res, next) => {
     "Title": req.body.Title,
     "QuestionList": questions,
     "NumberOfQuestions": (questions.length + 1),
-    "Author": req.user.displayName
+    "Author": req.user.displayName,
+    "ExpiryDate": new Date(req.body.ExpiryDate)
   }}, function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");
@@ -193,7 +221,8 @@ router.post('/deletequestion/:id',requireAuth, (req, res, next) => {
     "Title": req.body.Title,
     "QuestionList": questions,
     "NumberOfQuestions": (questions.length - 1),
-    "Author": req.user.displayName
+    "Author": req.user.displayName,
+    "ExpiryDate": new Date(req.body.ExpiryDate)
   }}, function (err, doc) {
     if (err) {
         console.log("Something wrong when updating data!");

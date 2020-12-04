@@ -71,7 +71,7 @@ module.exports.processLoginPage = (req, res, next) => {
             }, token: authToken});
             */
 
-            return res.redirect('/surveys');
+            return res.redirect('/surveys/admin');
         });
     })(req, res, next);
 }
