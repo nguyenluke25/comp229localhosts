@@ -9,18 +9,18 @@
     <% } %>
 
     <div class="row">
-        <div class="offset-md-4 col-md-4">
-            <h1>Please Login</h1>
+        <div class="col-md-offset-3 col-md-6 whiteBackground">
+            <h3 class="pageHeading">Login</h3>
             <form method="POST" autocomplete="off">
                 <fieldset class="form-group">
-                    <label for="username">Username: </label>
+                    <label for="username" class="darkLabel">Username</label>
                     <input type="text" class="form-control"
                     name="username" placeholder="Enter username"
                     id="username" required autofocus>
                 </fieldset>
 
                 <fieldset class="form-group">
-                    <label for="password">Password: </label>
+                    <label for="password" class="darkLabel">Password</label>
                     <input type="password" class="form-control"
                     name="password" placeholder="Enter password"
                     id="password" required>
@@ -29,10 +29,8 @@
                 </fieldset>
 
                 <fieldset class="form-group text-right">
-                    <input type="submit" class="btn btn-success" value="Login">
-                    <a href="/">
-                        <input type="button" class="btn btn-warning" value="Cancel">
-                    </a>
+                    <input type="submit" class="greenButton" value="Login">
+                    <a href="/"> <input type="button" class="cancelButton" value="Cancel"> </a>
                 </fieldset>
 
             </form>
