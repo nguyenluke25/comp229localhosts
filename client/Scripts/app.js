@@ -117,3 +117,31 @@ $.fn.pageMe = function(opts){
     {pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:6}
     );
 })();
+
+/* Button Functions for Survey Results Page */
+function emailCurrentPage(){
+    window.location.href="mailto:?subject="+document.title+"&body="+escape(window.location.href);
+}
+
+function exportResultsToExcel(tableID, filename = '')
+{
+    let dataType = 'application/vnd.ms-excel';
+    let tableSelect = document.getElementById(tableID);
+    let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+    filename = filename?filename+'.xls':'excel_data.xls'; //file name
+    let downloadLink = document.createElement("a"); //create download link
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob)
+    {
+        let blob = new Blob(['\ufeff', tableHTML], { type: dataType });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }
+    else
+    {
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML; //link to the file
+        downloadLink.download = filename; //set file name
+        downloadLink.click(); //trigger the function
+    }
+}

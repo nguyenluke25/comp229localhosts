@@ -6,7 +6,7 @@
         <div class="col-md-offset-3 col-md-6">
           <h1><%= title %></h1>
               <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover">
+                <table class="table table-bordered table-striped table-hover" id="tblData">
                   <thead>
                     <tr>
                       <% for (let i = 0; i < survey.QuestionList.length; i++) { %>
@@ -27,7 +27,10 @@
                 </table>
               </div>
               
-              <a href="/surveys" class="btn btn-success"><i class="fa fa-undo"></i> Back to survey list</a>
+              <button class="btn btn-primary" onclick="window.print()">Print Results</button>
+              <button class="btn btn-primary" onclick="emailCurrentPage()">Email Results</button>
+              <button class="btn btn-primary" onclick="exportResultsToExcel('tblData')">Export to Excel</button>
+              <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Back to survey list</a>
             
         </div>
       </div>
