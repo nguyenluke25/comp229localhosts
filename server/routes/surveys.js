@@ -48,14 +48,16 @@ router.get('/', (req, res, next) => {
 /* GET surveys List page. READ FOR ADMIN */
 router.get('/admin',requireAuth, (req, res, next) => {
   // find all surveys in the surveys collection
-  survey.find((err, surveys) => {
+  survey.find({
+    "Author": req.user ? req.user.displayName : ''
+  }, (err, surveys) => {
     console.log(surveys);
     if (err) {
       return console.error(err);
     }
     else {
       res.render('surveys/index', {
-        title: 'Surveys', 
+        title: 'My Surveys', 
         displayName: req.user ? req.user.displayName : '',
         surveys: surveys
       });
@@ -265,14 +267,21 @@ router.get('/view/:id', (req, res, next) => {
   survey.findById(id, (err, currentSurvey) =>{
       if(err)
       {
-          console.log(err);
-          res.end(err);
+        console.log(err);
+        res.end(err);
       }
       else
       {
-        console.log(currentSurvey)
+        if (currentSurvey.ExpiryDate >= new Date())
+        {
+          console.log(currentSurvey)
           res.render('surveys/views', {title: 'View Survey Info', displayName: req.user ? req.user.displayName : '',
-           survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
+          survey: currentSurvey, questionNum: currentSurvey.NumberOfQuestions})
+        }
+        else
+        {
+          res.redirect('/surveys');
+        }
       }
   });
 });

@@ -34,7 +34,7 @@
 
                 <div class="form-group">
                     <label for="ExpiryDate" class="darkLabel">Expiry Date</label>
-                    <input type="date" id="eDate" name="ExpiryDate"> 
+                    <input type="date" id="eDate" name="ExpiryDate" value="<%= survey.ExpiryDate.toISOString().split('T')[0]%>"> 
                 </div>
                 
                 <% console.log(survey._id) %>

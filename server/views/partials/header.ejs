@@ -35,10 +35,10 @@
         <% if(typeof displayName == 'string' && displayName) { %>
           <% if(title == "surveys") { %>
             <li class="active"><a href="/surveys/admin"><i class="fa fa-survey fa-lg">
-            </i> Admin Surveys List</a></li>
+            </i> <%= displayName %> Surveys List</a></li>
           <% } else { %>
             <li><a href="/surveys/admin"><i class="fa fa-survey fa-lg">
-            </i> Admin Surveys List</a></li>
+            </i> <%= displayName %> Surveys List</a></li>
           <% } %>
         <% } %>
 
