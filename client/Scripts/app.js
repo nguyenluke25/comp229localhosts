@@ -120,7 +120,8 @@ $.fn.pageMe = function(opts){
 
 /* Button Functions for Survey Results Page */
 function emailCurrentPage(){
-    window.location.href="mailto:?subject="+document.title+"&body="+escape(window.location.href);
+    var email = window.prompt("Enter email to send results to.", "Email");
+    window.location="mailto:"+email+"?subject="+document.title+"&body="+document.getElementById("results").innerHTML;
 }
 
 function exportResultsToExcel(tableID, filename = '')

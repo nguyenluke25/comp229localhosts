@@ -6,7 +6,7 @@
         <div class="col-md-offset-1 col-md-10 whiteBackground">
           <h3 class="pageHeading"><%= title %></h3>
           <h4><%= survey.Answers.length %> Submissions</h4>
-              <div class="table-responsive">
+              <div class="table-responsive" id="results">
                 <table class="table table-bordered table-striped table-hover" id="tblData">
                   <thead>
                     <tr>
@@ -30,7 +30,7 @@
               
               <div class="text-right">
               <button class="greenButton" onclick="window.print()">Print Results</button>
-              <button class="greenButton" onclick="emailCurrentPage()">Email Results</button>
+              <!-- <a class="greenButton" href="emailCurrentPage()">Email Results</a> -->
               <button class="greenButton" onclick="exportResultsToExcel('tblData')">Export to Excel</button>
               <a href="/surveys" class="cancelButton"><i class="fa fa-undo"></i> Back to survey list</a>
               </div>
